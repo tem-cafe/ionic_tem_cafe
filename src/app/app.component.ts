@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Router } from '@angular/router';
 import { ThemeService } from './services/theme/theme.service';
+import { UserService } from './services/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private router: Router,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private userService: UserService,
   ) {
     this.initializeApp();
     this.isLogged();
@@ -33,11 +35,14 @@ export class AppComponent {
   }
 
   isLogged() {
-    if (1 + 1 === 3) {
-      this.router.navigateByUrl('home');
-    } else {
-      this.router.navigateByUrl('login');
-    }
+    this.userService.isLogged()
+      .then((data) => {
+        if (data) {
+          this.router.navigateByUrl('home');
+        } else {
+          this.router.navigateByUrl('login');
+        }
+      });
   }
 
 }
