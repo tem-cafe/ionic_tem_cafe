@@ -1,5 +1,5 @@
 # Tem-Café
-Esse é um projeto destisnado ao aprendizado e treinamento para alunos da fatec de pompéia.
+Esse é um projeto destinado ao aprendizado e treinamento para alunos da fatec de pompéia.
 
 A nossa ideia futura é que esse seja um projeto de [crowdsourcing](https://saiadolugar.com.br/o-que-e-crowdsourcing-explicacao-e-exemplos/) com valores que são apresentados a nós desde que entramos na faculdade. A final um dos nossos principais valores é que "Ninguém cresce sozinho".
 
