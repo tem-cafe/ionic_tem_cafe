@@ -1,7 +1,0 @@
-{
-  "name": "tem-cafe",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}
