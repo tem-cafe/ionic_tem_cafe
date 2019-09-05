@@ -1,0 +1,26 @@
+.homeBackground {
+  background: url("../../../assets/background.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.homeContent {
+  background-color: #ffffffa9;
+  border-radius: 7px;
+}
+
+.homeProgressBarDiv {
+  width: 300px;
+}
+
+.homeProgressBar {
+  height: 12px;
+  border-radius: 7px;
+}
