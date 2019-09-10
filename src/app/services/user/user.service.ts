@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { ApiService } from '../../services/api/api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,15 @@ export class UserService {
 
   constructor(
     private storage: Storage,
-    public api: ApiService
+    public api: ApiService,
+    public httpClient: HttpClient
   ) { }
 
   async login(username?: string, password?: string) {
     return await new Promise((resolve, reject) => {
       if (username && password) {
         try {
-          this.api.postLogin(username, password).subscribe(data => {
+          this.postLogin(username, password).subscribe(data => {
             resolve(this.storage.set('token', data['token']));
           }, error => {
             reject(error);
@@ -46,5 +48,10 @@ export class UserService {
 
   async isLogged() {
     return this.storage.get('token');
+  }
+
+  postLogin(user: string, pass: string) {
+    const body = { email: user, password: pass };
+    return this.httpClient.post(`${this.api.API_URL}/login/`, body);
   }
 }
