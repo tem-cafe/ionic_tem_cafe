@@ -16,10 +16,11 @@ export class UserService {
     return await new Promise((resolve, reject) => {
       if (username && password) {
         try {
-          this.api.postLogin(username,password).subscribe(data => {
-
+          this.api.postLogin(username, password).subscribe(data => {
+            resolve(this.storage.set('token', data['token']));
+          }, error => {
+            reject(error);
           });
-          resolve(this.storage.set('token', '1234'));
         } catch (error) {
           reject(error);
         }
