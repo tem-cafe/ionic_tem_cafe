@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { ApiService } from '../../services/api/api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ export class UserService {
 
   constructor(
     private storage: Storage,
-    public api: ApiService
+    public api: ApiService,
+    public httpClient: HttpClient
   ) { }
 
   async login(userEmail?: string, userPassword?: string) {

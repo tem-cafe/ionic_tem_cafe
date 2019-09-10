@@ -11,15 +11,15 @@ export class ApiService {
   // private API_URL = 'http://localhost:3000';
 
   constructor(
-    public httpClient: HttpClient,
-    public storage: Storage
+    private storage: Storage,
+    private httpClient: HttpClient
   ) { }
 
-  getHeader() {
-    const usuario = JSON.parse(localStorage.getItem('currentUser'));
+  async getHeader() {
+    const data = await this.storage.get('token');
     return {
       headers: {
-        Authorization: 'Bearer ' + (usuario.token || '')
+        Authorization: 'Bearer ' + (data || '')
       }
     };
   }
