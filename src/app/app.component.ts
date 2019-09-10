@@ -13,6 +13,9 @@ import { UserService } from './services/user/user.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  deferredPrompt: any;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -22,6 +25,13 @@ export class AppComponent {
     private userService: UserService,
   ) {
     this.initializeApp();
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.deferredPrompt = e;
+      this.addToHome();
+    });
+
     this.isLogged();
   }
 
@@ -42,6 +52,14 @@ export class AppComponent {
         } else {
           this.router.navigateByUrl('login');
         }
+      });
+  }
+
+  addToHome() {
+    this.deferredPrompt.prompt();
+    this.deferredPrompt.userChoice
+      .then((choiceResult) => {
+        this.deferredPrompt = null;
       });
   }
 
