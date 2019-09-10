@@ -9,6 +9,10 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
 
+  public colorTemCopo: string = 'success';
+  public colorTemAcucar: string = 'success';
+  public colorTemPo: string = 'success';
+
   quantityBottle = 0;
   limitMin = false;
   limitMax = false;
@@ -43,6 +47,40 @@ export class HomePage implements OnInit {
       this.limitMin = false;
       this.limitMax = false;
     }
+  }
+
+  temCopo() {
+    if(this.colorTemCopo === 'success') { 
+      this.colorTemCopo = 'danger'
+      console.log("Tem Copo", false);
+    } else {
+      this.colorTemCopo = 'success'
+      console.log("Tem Copo", true);
+    }
+  }
+
+  temPo() {
+    if(this.colorTemPo === 'success') { 
+      this.colorTemPo = 'danger'
+      console.log("Tem Pó", false);
+    } else {
+      this.colorTemPo = 'success'
+      console.log("Tem Pó", true);
+    }
+  }
+
+  temAcucar() {
+    if(this.colorTemAcucar === 'success') { 
+      this.colorTemAcucar = 'danger'
+      console.log("Tem Açucar", false);
+    } else {
+      this.colorTemAcucar = 'success'
+      console.log("Tem Açucar", true);
+    }
+  }
+
+  vote() {
+    console.log("Votar");
   }
 
 }

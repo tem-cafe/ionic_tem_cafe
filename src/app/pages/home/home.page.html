@@ -1,42 +1,39 @@
 <div class="homeBackground">
   <div padding class="homeContent">
     <div class="homeProgressBarDiv">
-      <ion-button (click)="logout()" color="danger">
+      <!-- <ion-button (click)="logout()" color="danger">
         <ion-icon name="power"></ion-icon>
-      </ion-button>
+      </ion-button> -->
       <ion-grid>
-        <ion-row class="ion-align-items-center">
-          <ion-icon name="cafe" size="large" color="medium"></ion-icon>
+        <ion-row style="justify-content: center;">
+          <ion-img src="../../../assets/vazia.png"></ion-img>
+          <ion-img src="../../../assets/cheia.png"></ion-img>
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-item (click)="buttonClick()">
-              <ion-label>
-                Tem Copo
-              </ion-label>
-            </ion-item>
+            <ion-button expand="block" [color]="colorTemCopo" (click)="temCopo()">
+                Copo
+            </ion-button>
           </ion-col>
           <ion-col>
-            <ion-item (click)="buttonClick()">
-              <ion-label>
-                Tem Açucar
-              </ion-label>
-            </ion-item>
+            <ion-button expand="block" [color]="colorTemAcucar" (click)="temAcucar()">
+                Açúcar
+            </ion-button>
           </ion-col>
+        </ion-row>
+        <ion-row>
           <ion-col>
-            <ion-item (click)="buttonClick()">
-              <ion-label>
-                Tem Pó
-              </ion-label>
-            </ion-item>
+            <ion-button expand="block" [color]="colorTemPo" (click)="temPo()">
+                Pó
+            </ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
     </div>
-    
+
     <br />
-      <ion-button (click)="vote()" expand="block" color="success">
-        Votar!
-      </ion-button>
+    <ion-button (click)="vote()" expand="block" color="primary">
+      Votar!
+    </ion-button>
   </div>
 </div>
