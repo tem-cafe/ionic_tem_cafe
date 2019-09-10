@@ -24,9 +24,12 @@ export class ApiService {
     };
   }
 
-  login(user: string, pass: string) {
-    const body = { email: user, password: pass };
-    return this.httpClient.post(`${this.API_URL}/login/`, body);
+  get(endpoint: string) {
+    return this.httpClient.get(`${this.API_URL}/${endpoint}`);
+  }
+
+  post(endpoint: string, body: any) {
+    return this.httpClient.post(`${this.API_URL}/${endpoint}`, body);
   }
 
 }

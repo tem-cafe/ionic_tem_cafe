@@ -12,25 +12,20 @@ export class UserService {
     public api: ApiService
   ) { }
 
-  async login(username?: string, password?: string) {
+  async login(userEmail?: string, userPassword?: string) {
+    const body = {
+      email: userEmail,
+      password: userPassword
+    };
+
     return await new Promise((resolve, reject) => {
-      if (username && password) {
-        try {
-          this.api.postLogin(username, password).subscribe(data => {
-            resolve(this.storage.set('token', data['token']));
-          }, error => {
-            reject(error);
-          });
-        } catch (error) {
+      this.api.post('login/', body)
+        .subscribe((data: any) => {
+          console.log('Response login: ', data);
+          resolve(this.storage.set('token', data.Token));
+        }, error => {
           reject(error);
-        }
-      } else {
-        try {
-          resolve(this.storage.set('token', '0000'));
-        } catch (error) {
-          reject(error);
-        }
-      }
+        });
     });
   }
 
