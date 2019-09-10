@@ -18,7 +18,7 @@ export class UserService {
     return await new Promise((resolve, reject) => {
       if (username && password) {
         try {
-          this.postLogin(username, password).subscribe(data => {
+          this.login(username, password).subscribe(data => {
             resolve(this.storage.set('token', data['token']));
           }, error => {
             reject(error);
@@ -48,10 +48,5 @@ export class UserService {
 
   async isLogged() {
     return this.storage.get('token');
-  }
-
-  postLogin(user: string, pass: string) {
-    const body = { email: user, password: pass };
-    return this.httpClient.post(`${this.api.API_URL}/login/`, body);
   }
 }
