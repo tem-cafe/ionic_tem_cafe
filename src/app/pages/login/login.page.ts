@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme/theme.service';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user/user.service';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
   constructor(
     private themeService: ThemeService,
     private router: Router,
-    private userService: UserService
+    private loginService: LoginService
   ) { }
 
   ngOnInit() {
@@ -27,29 +27,32 @@ export class LoginPage implements OnInit {
   }
 
   async login(form?) {
-    if (form) {
-      if (form.valid) {
-        this.userService.login(this.username, this.password)
-          .then((user: any) => {
-            this.router.navigateByUrl('home');
-          })
-          .catch((error) => {
-            console.log('Error: ', error);
-          });
-      }
-    } else {
-      this.userService.login()
-        .then((user: any) => {
-          this.router.navigateByUrl('home');
-        })
-        .catch((error) => {
-          console.log('Error: ', error);
-        });
+    this.btnEnabled = false;
+    // Se não enviar o formulário reseta os valores (logar sem autenticação)
+    if (!form) {
+      this.username = '';
+      this.password = '';
     }
+
+    this.loginService.login(this.username, this.password)
+      .then((user: any) => {
+        this.btnEnabled = true;
+        this.router.navigateByUrl('home');
+      })
+      .catch((error) => {
+        this.username = '';
+        this.password = '';
+        console.error('Login error : ', error);
+        this.btnEnabled = true;
+      });
   }
 
   entryWithAccount() {
     this.willLogin = true;
+  }
+
+  register() {
+    this.router.navigateByUrl('register');
   }
 
   changeTheme() {
