@@ -21,6 +21,7 @@ export class HomePage implements OnInit {
   limitMin = false;
   limitMax = false;
 
+  nameLastAuthor: string = null;
   name: string = null;
   email: string = null;
   ageCoffee: string = null;
@@ -43,6 +44,13 @@ export class HomePage implements OnInit {
         console.error('Storage email: ', error);
       });
 
+    this.storage.get('name')
+      .then((name: string) => {
+        this.name = name;
+      }).catch((error: any) => {
+        console.error('Storage name: ', error);
+      });
+
     this.getTemCafe();
   }
 
@@ -57,7 +65,12 @@ export class HomePage implements OnInit {
   }
 
   postTemCafe(body: TemCafeModel) {
-    body.name = this.name;
+    if (!body.fizCafe) {
+      body.name = this.nameLastAuthor;
+    } else {
+      body.name = this.name;
+    }
+
     body.email = this.email;
 
     this.temCafeService.post(body)
@@ -71,7 +84,7 @@ export class HomePage implements OnInit {
 
   setDataOfResponse(data) {
     this.ageCoffee = data.date;
-    this.name = data.name;
+    this.nameLastAuthor = data.name;
 
     (data.temCopo) ? this.colorTemCopo = 'success' : this.colorTemCopo = 'danger';
     (data.temAcucar) ? this.colorTemAcucar = 'success' : this.colorTemAcucar = 'danger';
@@ -122,7 +135,7 @@ export class HomePage implements OnInit {
   }
 
   fizCafe() {
-    this.postTemCafe({ fizCafe: true });
+    this.postTemCafe({ fizCafe: true, name: this.name });
   }
 
 }
