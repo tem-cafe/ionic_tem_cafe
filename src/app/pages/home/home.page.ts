@@ -35,14 +35,6 @@ export class HomePage implements OnInit {
   ngOnInit() { }
 
   ionViewWillEnter() {
-    this.storage.get('name')
-      .then((name: string) => {
-        this.name = name;
-      })
-      .catch((error: any) => {
-        console.error('Storage name: ', error);
-      });
-
     this.storage.get('email')
       .then((email: string) => {
         this.email = email;
@@ -79,6 +71,7 @@ export class HomePage implements OnInit {
 
   setDataOfResponse(data) {
     this.ageCoffee = data.date;
+    this.name = data.name;
 
     (data.temCopo) ? this.colorTemCopo = 'success' : this.colorTemCopo = 'danger';
     (data.temAcucar) ? this.colorTemAcucar = 'success' : this.colorTemAcucar = 'danger';
