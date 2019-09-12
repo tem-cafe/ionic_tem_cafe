@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
-import { TemCafeModel } from 'src/app/models/TemCafe.model';
+import { TemCafeModel } from '../../models/temCafe.model';
 
 @Injectable({
   providedIn: 'root'

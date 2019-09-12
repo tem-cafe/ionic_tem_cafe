@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login/login.service';
 import { TemCafeService } from 'src/app/services/tem-cafe/tem-cafe.service';
-import { TemCafeModel } from 'src/app/models/TemCafe.model';
+import { TemCafeModel } from '../../models/temCafe.model';
 import { Storage } from '@ionic/storage';
 
 @Component({
