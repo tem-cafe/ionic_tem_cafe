@@ -17,6 +17,8 @@ export class LoginService {
       this.api.post('login/', { email: userEmail, password: userPassword })
         .subscribe((data: any) => {
           resolve(this.storage.set('token', data.token));
+          resolve(this.storage.set('name', data.name));
+          resolve(this.storage.set('email', data.email));
         }, (error: any) => {
           reject(error);
         });

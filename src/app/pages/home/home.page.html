@@ -1,30 +1,40 @@
 <div class="homeBackground">
   <div padding class="homeContent">
     <div class="homeProgressBarDiv">
-      <!-- <ion-button (click)="logout()" color="danger">
+      <ion-button (click)="logout()" color="danger">
         <ion-icon name="power"></ion-icon>
-      </ion-button> -->
+      </ion-button>
       <ion-grid>
         <ion-row style="justify-content: center;">
-          <ion-img src="../../../assets/vazia.png"></ion-img>
-          <ion-img src="../../../assets/cheia.png"></ion-img>
+          <ion-img *ngIf="colorTemCafe != 'success'" src="../../../assets/vazia.png"></ion-img>
+          <ion-img *ngIf="colorTemCafe == 'success'" src="../../../assets/cheia.png"></ion-img>
+          <ion-chip color="tertiary" *ngIf="colorTemCafe == 'success' && ageCoffee">Idade do café:
+            {{ ageCoffee | date: 'dd/MM/yy HH:mm' }}
+            <br>
+            Autor do café: {{ name }}
+          </ion-chip>
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button expand="block" [color]="colorTemCopo" (click)="temCopo()">
-                Copo
+            <ion-button [disabled]="!name" expand="block" [color]="colorTemCopo" (click)="temCopo()">
+              Copo
             </ion-button>
           </ion-col>
           <ion-col>
-            <ion-button expand="block" [color]="colorTemAcucar" (click)="temAcucar()">
-                Açúcar
+            <ion-button [disabled]="!name" expand="block" [color]="colorTemAcucar" (click)="temAcucar()">
+              Açúcar
             </ion-button>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
-            <ion-button expand="block" [color]="colorTemPo" (click)="temPo()">
-                Pó
+            <ion-button [disabled]="!name" expand="block" [color]="colorTemPo" (click)="temPo()">
+              Pó
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button [disabled]="!name" expand="block" [color]="colorTemCafe" (click)="temCafe()">
+              Café
             </ion-button>
           </ion-col>
         </ion-row>
@@ -32,8 +42,8 @@
     </div>
 
     <br />
-    <ion-button (click)="vote()" expand="block" color="primary">
-      Votar!
+    <ion-button [disabled]="!name" (click)="fizCafe()" expand="block" color="primary">
+      Fiz café!
     </ion-button>
   </div>
 </div>

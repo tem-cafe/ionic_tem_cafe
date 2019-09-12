@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login/login.service';
+import { TemCafeService } from 'src/app/services/tem-cafe/tem-cafe.service';
+import { TemCafeModel } from 'src/app/models/TemCafe.model';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-home',
@@ -9,26 +12,83 @@ import { LoginService } from 'src/app/services/login/login.service';
 })
 export class HomePage implements OnInit {
 
-  public colorTemCopo: string = 'success';
-  public colorTemAcucar: string = 'success';
-  public colorTemPo: string = 'success';
+  colorTemCopo: string;
+  colorTemAcucar: string;
+  colorTemPo: string;
+  colorTemCafe: string;
 
   quantityBottle = 0;
   limitMin = false;
   limitMax = false;
 
+  name: string = null;
+  email: string = null;
+  ageCoffee: string = null;
+
   constructor(
     private router: Router,
     private loginService: LoginService,
+    private temCafeService: TemCafeService,
+    private storage: Storage
   ) { }
 
-  ngOnInit() {
-    this.updateBottle();
+  ngOnInit() { }
+
+  ionViewWillEnter() {
+    this.storage.get('name')
+      .then((name: string) => {
+        this.name = name;
+      })
+      .catch((error: any) => {
+        console.error('Storage name: ', error);
+      });
+
+    this.storage.get('email')
+      .then((email: string) => {
+        this.email = email;
+      })
+      .catch((error: any) => {
+        console.error('Storage email: ', error);
+      });
+
+    this.getTemCafe();
+  }
+
+  getTemCafe() {
+    this.temCafeService.get()
+      .then((data: any) => {
+        this.setDataOfResponse(data);
+      })
+      .catch((error: any) => {
+        console.error('Error tem cafe: ', error);
+      });
+  }
+
+  postTemCafe(body: TemCafeModel) {
+    body.name = this.name;
+    body.email = this.email;
+
+    this.temCafeService.post(body)
+      .then((data: any) => {
+        this.setDataOfResponse(data);
+      })
+      .catch((error: any) => {
+        console.error('Error tem cafe: ', error);
+      });
+  }
+
+  setDataOfResponse(data) {
+    this.ageCoffee = data.date;
+
+    (data.temCopo) ? this.colorTemCopo = 'success' : this.colorTemCopo = 'danger';
+    (data.temAcucar) ? this.colorTemAcucar = 'success' : this.colorTemAcucar = 'danger';
+    (data.temPo) ? this.colorTemPo = 'success' : this.colorTemPo = 'danger';
+    (data.temCafe) ? this.colorTemCafe = 'success' : this.colorTemCafe = 'danger';
   }
 
   logout() {
     this.loginService.logout()
-      .then((data) => {
+      .then((data: any) => {
         this.router.navigateByUrl('login');
       })
       .catch((error) => {
@@ -36,51 +96,40 @@ export class HomePage implements OnInit {
       });
   }
 
-  updateBottle(quantity: number = 0) {
-    this.quantityBottle = this.quantityBottle + quantity;
-
-    if (this.quantityBottle < 0.1) {
-      this.limitMin = true;
-    } else if (this.quantityBottle > 0.9) {
-      this.limitMax = true;
-    } else {
-      this.limitMin = false;
-      this.limitMax = false;
-    }
-  }
-
   temCopo() {
-    if(this.colorTemCopo === 'success') { 
-      this.colorTemCopo = 'danger'
-      console.log("Tem Copo", false);
+    if (this.colorTemCopo === 'success') {
+      this.postTemCafe({ temCopo: false });
     } else {
-      this.colorTemCopo = 'success'
-      console.log("Tem Copo", true);
-    }
-  }
-
-  temPo() {
-    if(this.colorTemPo === 'success') { 
-      this.colorTemPo = 'danger'
-      console.log("Tem Pó", false);
-    } else {
-      this.colorTemPo = 'success'
-      console.log("Tem Pó", true);
+      this.postTemCafe({ temCopo: true });
     }
   }
 
   temAcucar() {
-    if(this.colorTemAcucar === 'success') { 
-      this.colorTemAcucar = 'danger'
-      console.log("Tem Açucar", false);
+    if (this.colorTemAcucar === 'success') {
+      this.postTemCafe({ temAcucar: false });
     } else {
-      this.colorTemAcucar = 'success'
-      console.log("Tem Açucar", true);
+      this.postTemCafe({ temAcucar: true });
     }
   }
 
-  vote() {
-    console.log("Votar");
+  temPo() {
+    if (this.colorTemPo === 'success') {
+      this.postTemCafe({ temPo: false });
+    } else {
+      this.postTemCafe({ temPo: true });
+    }
+  }
+
+  temCafe() {
+    if (this.colorTemCafe === 'success') {
+      this.postTemCafe({ temCafe: false });
+    } else {
+      this.postTemCafe({ temCafe: true });
+    }
+  }
+
+  fizCafe() {
+    this.postTemCafe({ fizCafe: true });
   }
 
 }

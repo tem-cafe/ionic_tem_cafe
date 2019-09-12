@@ -12,14 +12,14 @@ export class UserService {
     public api: ApiService,
   ) { }
 
-  register(userEmail: string, userPassword: string) {
+  register(userName: string, userEmail: string, userPassword: string) {
     return new Promise((resolve, reject) => {
-      this.api.post('usuario/', { email: userEmail, password: userPassword })
+      this.api.post('usuario/', { name: userName, email: userEmail, password: userPassword })
         .subscribe((data: any) => {
-          console.log('Response register: ', data);
           resolve(this.storage.set('token', data.token));
+          resolve(this.storage.set('name', data.name));
+          resolve(this.storage.set('email', data.email));
         }, (error: any) => {
-          console.error('user.service.ts -> register() -> api.post()', error);
           reject(error);
         });
     });

@@ -11,7 +11,8 @@ export class RegisterPage implements OnInit {
 
   willRegister = false;
 
-  username: string = null;
+  name: string = null;
+  email: string = null;
   password: string = null;
   btnEnabled = true;
 
@@ -26,13 +27,14 @@ export class RegisterPage implements OnInit {
   async register() {
     this.btnEnabled = false;
 
-    this.userService.register(this.username, this.password)
-      .then((user: any) => {
+    this.userService.register(this.name, this.email, this.password)
+      .then((data: any) => {
         this.btnEnabled = true;
         this.router.navigateByUrl('home');
       })
       .catch((error) => {
-        this.username = '';
+        this.name = '';
+        this.email = '';
         this.password = '';
         console.log('Register error: ', error.error.err);
         this.btnEnabled = true;

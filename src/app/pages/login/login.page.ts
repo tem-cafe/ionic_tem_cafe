@@ -12,7 +12,8 @@ export class LoginPage implements OnInit {
 
   willLogin = false;
 
-  username: string = null;
+  name: string = null;
+  email: string = null;
   password: string = null;
   btnEnabled = true;
 
@@ -30,17 +31,19 @@ export class LoginPage implements OnInit {
     this.btnEnabled = false;
     // Se não enviar o formulário reseta os valores (logar sem autenticação)
     if (!form) {
-      this.username = '';
+      this.name = '';
+      this.email = '';
       this.password = '';
     }
 
-    this.loginService.login(this.username, this.password)
-      .then((user: any) => {
+    this.loginService.login(this.email, this.password)
+      .then((data: any) => {
         this.btnEnabled = true;
         this.router.navigateByUrl('home');
       })
       .catch((error) => {
-        this.username = '';
+        this.name = '';
+        this.email = '';
         this.password = '';
         console.error('Login error : ', error);
         this.btnEnabled = true;
