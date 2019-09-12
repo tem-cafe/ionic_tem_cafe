@@ -28,6 +28,7 @@ export class RegisterPage implements OnInit {
 
     this.userService.register(this.username, this.password)
       .then((user: any) => {
+        this.btnEnabled = true;
         this.router.navigateByUrl('home');
       })
       .catch((error) => {
