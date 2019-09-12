@@ -29,6 +29,8 @@ export class LoginService {
     return await new Promise((resolve, reject) => {
       try {
         resolve(this.storage.remove('token'));
+        resolve(this.storage.remove('name'));
+        resolve(this.storage.remove('email'));
       } catch (error) {
         reject(error);
       }
