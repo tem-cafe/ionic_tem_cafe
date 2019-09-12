@@ -1,6 +1,6 @@
 <div class="loginBackground">
   <form #formLogin="ngForm" (ngSubmit)="login(formLogin)" class="loginForm">
-    <div padding>
+    <div padding style="padding-bottom: 0px;">
       <div text-center>
         <img src="../../../assets/logo.png" style="border-radius: 7px; max-height: 200px;" />
       </div>
@@ -14,6 +14,12 @@
           <ion-input type="password" name="password" [(ngModel)]="password" required (keyup.enter)="login(formLogin)">
           </ion-input>
         </ion-item>
+
+        <br>
+        <ion-chip color="tertiary" (click)="register()">
+          <ion-icon name="person-add" color="tertiary"></ion-icon>
+          <ion-label>Não tem uma conta?</ion-label>
+        </ion-chip>
       </div>
     </div>
 
@@ -21,7 +27,7 @@
       <ion-button *ngIf="btnEnabled" expand="block" [disabled]="!formLogin.valid" type="submit">
         Entrar com conta
       </ion-button>
-      <ion-button *ngIf="!btnEnabled" expand="block">
+      <ion-button *ngIf="!btnEnabled" disabled="true" expand="block">
         <ion-spinner name="crescent"></ion-spinner>
       </ion-button>
     </div>
@@ -30,9 +36,12 @@
         Entrar com conta
       </ion-button>
     </div>
-    <div padding *ngIf="btnEnabled">
-      <ion-button expand="block" color="secondary" (click)="login()">
+    <div padding>
+      <ion-button *ngIf="btnEnabled" expand="block" color="secondary" (click)="login()">
         Entrar sem login
+      </ion-button>
+      <ion-button *ngIf="!btnEnabled" disabled="true" color="secondary" expand="block">
+        <ion-spinner name="crescent"></ion-spinner>
       </ion-button>
     </div>
   </form>

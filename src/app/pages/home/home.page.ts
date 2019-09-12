@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user/user.service';
 import { Router } from '@angular/router';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +14,8 @@ export class HomePage implements OnInit {
   limitMax = false;
 
   constructor(
-    private userService: UserService,
     private router: Router,
+    private loginService: LoginService,
   ) { }
 
   ngOnInit() {
@@ -23,12 +23,12 @@ export class HomePage implements OnInit {
   }
 
   logout() {
-    this.userService.logout()
+    this.loginService.logout()
       .then((data) => {
         this.router.navigateByUrl('login');
       })
       .catch((error) => {
-        console.log('Error: ', error);
+        console.error('Logout error: ', error);
       });
   }
 
