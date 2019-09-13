@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme/theme.service';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login/login.service';
+import { AtualizacaoService } from 'src/app/services/atualizacao/atualizacao.service';
+import { LoadingController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,10 @@ export class LoginPage implements OnInit {
   constructor(
     private themeService: ThemeService,
     private router: Router,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private atualizacaoService: AtualizacaoService,
+    public loadingController: LoadingController,
+    public toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -82,4 +87,30 @@ export class LoginPage implements OnInit {
     this.themeService.setTheme(theme);
   }
 
+  verificarAtualizacao() {
+    this.presentLoading();
+    this.atualizacaoService.verificarAtualizacao().subscribe(data => {
+      window.location.href = data['link'];
+    }, error => {
+      this.presentToast('Seu app já está atualizado!');
+    });
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      duration: 1000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+  }
+
+  async presentToast(msg: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 5000
+    });
+    toast.present();
+  }
 }
