@@ -1,1 +1,1 @@
-web: ionic build --prod --release && npm run web
+web: npm run web
