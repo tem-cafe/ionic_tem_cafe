@@ -4,7 +4,7 @@
   "author": "Samuel Licorio Leiva",
   "homepage": "https://ionicframework.com/",
   "scripts": {
-    "web": "ionic build && live-server ./www",
+    "web": "npm run build && live-server ./www",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
