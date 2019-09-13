@@ -4,7 +4,7 @@
   "author": "Samuel Licorio Leiva",
   "homepage": "https://ionicframework.com/",
   "scripts": {
-    "web": "live-server ./www",
+    "web": "ionic build && live-server ./www",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
@@ -30,6 +30,7 @@
     "@ionic/storage": "^2.2.0",
     "color": "^3.1.2",
     "cordova-android": "8.0.0",
+    "cordova-browser": "6.0.0",
     "core-js": "^2.5.4",
     "live-server": "^1.2.1",
     "rxjs": "~6.5.1",
@@ -81,7 +82,8 @@
       "cordova-plugin-ionic-keyboard": {}
     },
     "platforms": [
-      "android"
+      "android",
+      "browser"
     ]
   }
 }
