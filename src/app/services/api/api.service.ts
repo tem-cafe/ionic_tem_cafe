@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 })
 export class ApiService {
   public API_URL = 'https://api-tem-cafe.herokuapp.com';
+  public VERSAO = '1.0.0';
   // private API_URL = 'http://localhost:3000';
 
   constructor(
